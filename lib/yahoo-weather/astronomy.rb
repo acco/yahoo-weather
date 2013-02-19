@@ -7,7 +7,7 @@ class YahooWeather::Astronomy
   attr_reader :sunset
 
   def initialize (payload)
-    @sunrise = YahooWeather._parse_time(payload['sunrise'])
-    @sunset = YahooWeather._parse_time(payload['sunset'])
+    @sunrise = payload['sunrise']
+    @sunset  = payload['sunset']
   end
 end

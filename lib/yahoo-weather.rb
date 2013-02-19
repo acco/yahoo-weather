@@ -18,6 +18,7 @@
 require 'net/http'
 require 'cgi'
 require 'time'
+require 'active_support/time'
 require 'nokogiri'
 
 class YahooWeather

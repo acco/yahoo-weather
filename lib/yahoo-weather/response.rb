@@ -55,6 +55,8 @@ class YahooWeather::Response
   # the prose descriptive title of the weather information.
   attr_reader :title
 
+  attr_reader :pub_date
+
   def initialize (request_location, request_url, doc)
     # save off the request params
     @request_location = request_location
@@ -71,6 +73,9 @@ class YahooWeather::Response
     @image = YahooWeather::Image.new(root.xpath('image').first)
 
     item = root.xpath('item').first
+    pub_date = item.xpath('pubDate')
+    pub_date = pub_date.gsub!(/AE[SD]T/, ActiveSupport::TimeZone.new("Sydney").now.formatted_offset)
+    @pub_date = DateTime.parse(pub_date)
     @condition = YahooWeather::Condition.
       new(item.xpath('yweather:condition').first)
     @forecasts = []
